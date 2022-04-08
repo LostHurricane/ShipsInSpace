@@ -10,11 +10,15 @@ namespace ShipsInSpace
 
         private Controllers _controllers;
 
+        [SerializeField]
+        private Data _gameData;
+
+
         // Start is called before the first frame update
         void Awake()
         {
             _controllers = new Controllers();
-            new Initializer(_controllers, _player);
+            new Initializer(_controllers, _gameData);
             _controllers.Initialization();
         }
 

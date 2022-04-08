@@ -14,10 +14,10 @@ namespace ShipsInSpace
 
         private Vector3 _direction;
 
-        public PlayerShipController(InteractiveObjectView shipView)
+        public PlayerShipController(ActiveObjectData playerData)
         {
             _camera = Camera.main;
-            _player = shipView;
+            _player = Object.Instantiate(playerData.GetPrefab()).GetComponent<InteractiveObjectView>();
             _movementManager = new MovementManager(new RigidBodyMovement(_player.Rigidbody, _speed), new RigidBodyRotation(_player.Rigidbody));
         }
 

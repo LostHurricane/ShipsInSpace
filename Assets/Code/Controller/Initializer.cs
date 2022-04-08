@@ -6,9 +6,9 @@ namespace ShipsInSpace
 {
     public sealed class Initializer
     {
-        public Initializer(Controllers controllers, InteractiveObjectView view)
+        public Initializer(Controllers controllers, Data data)
         {
-            controllers.Add(new PlayerShipController(view));
+            controllers.Add(new PlayerShipController(data.GetData<ActiveObjectData>(ObjectType.Player)));
 
 
         }
