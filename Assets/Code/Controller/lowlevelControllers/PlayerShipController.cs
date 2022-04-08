@@ -9,7 +9,6 @@ namespace ShipsInSpace
         private InteractiveObjectView _player;
         private MovementManager _movementManager;
 
-        private float _speed = 10; // ג האכüםוירול גûםוסעט גûרו
         private Camera _camera;
 
         private Vector3 _direction;
@@ -18,7 +17,7 @@ namespace ShipsInSpace
         {
             _camera = Camera.main;
             _player = Object.Instantiate(playerData.GetPrefab()).GetComponent<InteractiveObjectView>();
-            _movementManager = new MovementManager(new RigidBodyMovement(_player.Rigidbody, _speed), new RigidBodyRotation(_player.Rigidbody));
+            _movementManager = new MovementManager(new RigidBodyMovement(_player.Rigidbody, playerData.Speed), new RigidBodyRotation(_player.Rigidbody));
         }
 
         public void Execute(float deltaTime)
