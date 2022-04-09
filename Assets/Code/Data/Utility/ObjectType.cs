@@ -4,6 +4,7 @@ namespace ShipsInSpace
     {
        Player = 0,
        Bullet = 1,
-       Enemy = 2
+       Enemy = 2,
+       Obstacle = 3
     }
 }
