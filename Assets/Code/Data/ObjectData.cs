@@ -9,7 +9,7 @@ namespace ShipsInSpace
     public class ObjectData : ScriptableObject, IObjectData
     {
         [SerializeField]
-        private GameObject _prefab;
+        protected GameObject _prefab;
 
         public GameObject GetPrefab ()
         {

@@ -13,19 +13,39 @@ namespace ShipsInSpace
         [SerializeField]
         private Data _gameData;
 
+        private Camera _currentCamera;
+
+
+        ProjectilePool projectilePool;
+
 
         // Start is called before the first frame update
         void Awake()
         {
+            _currentCamera = Camera.current;
             _controllers = new Controllers();
             new Initializer(_controllers, _gameData);
             _controllers.Initialization();
+
+
+            #region TestBlock
+
+            projectilePool = new ProjectilePool(_gameData.GetData<ObjectData>(ObjectType.Bullet).GetPrefab().GetComponent<InteractiveObjectView>(), 4);
+
+            #endregion
+
         }
 
         // Update is called once per frame
         void Update()
         {
             _controllers.Execute(Time.deltaTime);
+
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                projectilePool.GetNewObject();
+            }
         
         }
 

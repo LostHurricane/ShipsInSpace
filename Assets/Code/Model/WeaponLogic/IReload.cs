@@ -1,7 +1,9 @@
+using System.Collections;
+
 namespace ShipsInSpace
 {
     public interface IReload
     {
-        void Reload();
+        IEnumerator Reload();
     }
 }

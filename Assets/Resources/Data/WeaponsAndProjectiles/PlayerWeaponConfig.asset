@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4a97fac814bba4ba3a40bc246093f0, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 4c21f693ce6f6f9409b70223c5bb920e, type: 3}
+  m_Name: PlayerWeaponConfig
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1326877256624635200, guid: 36a482fa09efe7f4ba2c008f0a9159a6, type: 3}
-  _speed: 10
-  IsArmed: 1
-  _weaponData: {fileID: 11400000, guid: d8dd3dd7191d5a44b9e302f8fa82f4b4, type: 2}
+  WeaponStats:
+    Damage: 3
+    Realodable: 1
+    Volume: 7
+    PushForce: 5
