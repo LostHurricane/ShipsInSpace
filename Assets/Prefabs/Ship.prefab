@@ -99,6 +99,7 @@ MonoBehaviour:
   _transform: {fileID: 1326877256624635213}
   _rigidbody: {fileID: 1326877256624635212}
   _collider: {fileID: 0}
+  _spriteRenderer: {fileID: 1326877256624635202}
 --- !u!50 &1326877256624635212
 Rigidbody2D:
   serializedVersion: 4

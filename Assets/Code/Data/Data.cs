@@ -16,10 +16,9 @@ namespace ShipsInSpace
         private List<DataPathSet> _dataPathSet ;
 
 
-        public T GetData <T> (ObjectType type) where T : UnityEngine.Object, IObjectData
+        public T GetData <T> (ObjectType type) where T : ScriptableObject //, IObjectData
         {
             var temp = _dataPathSet.Where(p => p.Type == type).FirstOrDefault();
-
             if (temp.Data == null)
             {
                 temp.Data = Resources.Load<T>(Path.Combine("Data/" + temp.PathTo));
@@ -32,7 +31,8 @@ namespace ShipsInSpace
         {
             public ObjectType Type;
             public string PathTo;
-            public IObjectData Data;
+            public ScriptableObject Data;
+            //public IObjectData Data;
         }
     }
     

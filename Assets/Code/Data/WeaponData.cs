@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ShipsInSpace
 {
     [CreateAssetMenu(fileName = "WeaponConfig", menuName = "Configs/WeaponConfig")]
-    public class WeaponData : ScriptableObject
+    public class WeaponData : ObjectData
     {
         public WeaponStats WeaponStats;
     }

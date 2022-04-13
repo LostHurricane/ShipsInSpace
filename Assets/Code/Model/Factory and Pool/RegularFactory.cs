@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class RegularFactory <T> : IFactory <T> where T: MonoBehaviour//Object
+    public class RegularFactory <T> : IFactory <T> where T: Object
     {
         private T _example;
 

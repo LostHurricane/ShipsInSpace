@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f703740f930001b4eafbc886973ef760, type: 3}
   m_Name: DataConfig
   m_EditorClassIdentifier: 
-  _PlayerDataPath: Player
   _dataPathSet:
   - Type: 0
     PathTo: Player
+    Data: {fileID: 0}
   - Type: 1
     PathTo: Bullet
+    Data: {fileID: 0}
+  - Type: 2
+    PathTo: EnemyConfig
+    Data: {fileID: 0}
+  - Type: 3
+    PathTo: EnemyCoordinatesSet
+    Data: {fileID: 0}

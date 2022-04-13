@@ -6,30 +6,30 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class ProjectilePool : IPool<InteractiveObjectView>
+    public class ProjectilePool <T> : IPool<T> where T : MonoBehaviour, ITransform, IPoolable
     {
-        private readonly HashSet<InteractiveObjectView> _projectilePool;
+        private readonly HashSet<T> _projectilePool;
         private readonly int _capacityPool;
         private Transform _rootPool;
 
-        private RegularFactory<InteractiveObjectView> _projectileFactory;
+        private RegularFactory<T> _projectileFactory;
 
-        public ProjectilePool (InteractiveObjectView example, int capacityPool)
+        public ProjectilePool (T example, int capacityPool)
         {
-            _projectilePool = new HashSet<InteractiveObjectView>();
-            _projectileFactory = new RegularFactory<InteractiveObjectView>(example);
+            _projectilePool = new HashSet<T>();
+            _projectileFactory = new RegularFactory<T>(example);
             _capacityPool = capacityPool;
             if (!_rootPool)
                 _rootPool = new GameObject(example.name + "Pool").transform;
             
         }
 
-        public InteractiveObjectView GetNewObject()
+        public T GetNewObject()
         {
             return GetFromPool(_projectilePool);
         }
 
-        private InteractiveObjectView GetFromPool(HashSet<InteractiveObjectView> pool)
+        private T GetFromPool(HashSet<T> pool)
         {
             var instance = pool.FirstOrDefault(a => !a.gameObject.activeSelf);
             if (instance == null)
@@ -39,6 +39,7 @@ namespace ShipsInSpace
                     var item = _projectileFactory.GetNewObject();
                     pool.Add(item);
                     ReturnToPool(item.Transform);
+                    item.OnReturnToPool += ReturnToPool;
                 }
 
                 instance = GetFromPool(pool);
@@ -50,7 +51,7 @@ namespace ShipsInSpace
 
         public void ReturnToPool(Transform transform)
         {
-            if (_projectilePool.Contains(transform.GetComponent<InteractiveObjectView>()))
+            if (_projectilePool.Contains(transform.GetComponent<T>()))
             {
                 transform.gameObject.SetActive(false);
                 transform.SetParent(_rootPool);

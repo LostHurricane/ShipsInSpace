@@ -6,7 +6,7 @@ namespace ShipsInSpace
 {
     public class Main : MonoBehaviour
     {
-        [SerializeField] private InteractiveObjectView _player;
+        // [SerializeField] private InteractiveObjectView _player; //Test field
 
         private Controllers _controllers;
 
@@ -15,8 +15,6 @@ namespace ShipsInSpace
 
         private Camera _currentCamera;
 
-
-        ProjectilePool projectilePool;
 
 
         // Start is called before the first frame update
@@ -28,11 +26,7 @@ namespace ShipsInSpace
             _controllers.Initialization();
 
 
-            #region TestBlock
-
-            projectilePool = new ProjectilePool(_gameData.GetData<ObjectData>(ObjectType.Bullet).GetPrefab().GetComponent<InteractiveObjectView>(), 4);
-
-            #endregion
+            
 
         }
 
@@ -41,12 +35,7 @@ namespace ShipsInSpace
         {
             _controllers.Execute(Time.deltaTime);
 
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                projectilePool.GetNewObject();
-            }
-        
+                   
         }
 
         private void FixedUpdate()

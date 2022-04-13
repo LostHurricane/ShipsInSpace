@@ -4,6 +4,7 @@ namespace ShipsInSpace
 {
     public interface IReload
     {
-        IEnumerator Reload();
+        public int Stock { get; }
+        void Reload();
     }
 }
