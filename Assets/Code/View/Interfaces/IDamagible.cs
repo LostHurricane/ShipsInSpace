@@ -2,9 +2,9 @@ using System;
 
 namespace ShipsInSpace
 {
-    public interface IDamagible 
+    public interface IDamagible : IView
     {
-        Action<int> OnDamageTaken { get; }
+        Action<int> OnDamageTaken { get; set; }
 
         void TakeDamage(int damage);
     }

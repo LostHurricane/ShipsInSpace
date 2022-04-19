@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class ProjectilePool <T> : IPool<T> where T : MonoBehaviour, ITransform, IPoolable
+    public class ProjectilePool <T> : IPool<T> where T : UnityEngine.Object, IView, ITransform, IPoolable
     {
         private readonly HashSet<T> _projectilePool;
         private readonly int _capacityPool;
@@ -20,7 +20,7 @@ namespace ShipsInSpace
             _projectileFactory = new RegularFactory<T>(example);
             _capacityPool = capacityPool;
             if (!_rootPool)
-                _rootPool = new GameObject(example.name + "Pool").transform;
+                _rootPool = new GameObject(example.GameObject.name + "Pool").transform;
             
         }
 
@@ -31,7 +31,7 @@ namespace ShipsInSpace
 
         private T GetFromPool(HashSet<T> pool)
         {
-            var instance = pool.FirstOrDefault(a => !a.gameObject.activeSelf);
+            var instance = pool.FirstOrDefault(a => !a.GameObject.activeSelf);
             if (instance == null)
             {
                 for (var i = 0; i < _capacityPool; i++)

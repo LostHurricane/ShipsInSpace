@@ -6,23 +6,29 @@ namespace ShipsInSpace
 {
     public class Placer
     {
-        private IFactory<InteractiveObjectView> _factory;
-        private List<Vector2> _coordinates;
+        private IFactory<GameObject> _factory;
 
-        public Placer (Coordinates coordinates, IFactory<InteractiveObjectView> factory)
+        public Placer (IFactory<GameObject> factory)
         {
-            _coordinates = new List<Vector2>(coordinates.GetCoordinates());
             _factory = factory;
+
         }
 
-        public void Spawn(List <InteractiveObjectView> views)
+        public void MassSpawn <T> (List <T> views, Vector2[] coordinates)
         {
-            foreach (var coordinates in _coordinates)
+            foreach (var position in coordinates)
             {
                 var temp = _factory.GetNewObject();
-                temp.Transform.position = coordinates;
-                views.Add(temp);
+                temp.transform.position = position;
+                views.Add(temp.GetComponent<T>());
             }
+        }
+
+        public IView SingleSpawn(Vector2 position)
+        {
+            var temp = _factory.GetNewObject();
+            temp.transform.position = position;
+            return temp.GetComponent<IView>();
         }
     }
 }

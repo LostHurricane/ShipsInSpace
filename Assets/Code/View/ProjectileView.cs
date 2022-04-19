@@ -8,6 +8,10 @@ namespace ShipsInSpace
     public class ProjectileView : MonoBehaviour, ITransform, IRigidBody, ICollider, IDamageDealer, IPoolable
     {
         [SerializeField]
+        private GameObject _gameObject;
+        public GameObject GameObject { get => _gameObject; set => _gameObject = value; }
+
+        [SerializeField]
         private Transform _transform;
         public Transform Transform { get => _transform; set => _transform = value; }
 

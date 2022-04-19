@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public interface IDamageDealer
+    public interface IDamageDealer : IView
     {
         Action<IDamagible> OnDealingDamage { get; set; }
     }

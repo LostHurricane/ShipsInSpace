@@ -16,7 +16,15 @@ namespace ShipsInSpace
         }
 
         [SerializeField]
+        private int _hitPoints;
+        public int HitPoints
+        {
+            get => _hitPoints;
+        }
+
+        [SerializeField]
         private bool IsArmed;
+
         [SerializeField]
         private WeaponData _weaponData;
 

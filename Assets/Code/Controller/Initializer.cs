@@ -6,13 +6,17 @@ namespace ShipsInSpace
 {
     public sealed class Initializer
     {
-        private Transform _player;
         public Initializer(Controllers controllers, Data data)
         {
-            controllers.Add(new PlayerShipController(data.GetData<ActiveObjectData>(ObjectType.Player), out _player));
-            controllers.Add(new EnemyController(data, _player));
+            controllers.Add(new InputController(out var inputController));
 
+            //Demonstraion of use of ServiceLocator
+            //ServiceLocator.SetService(inputController); 
 
+            controllers.Add(new PlayerShipController(data.GetData<ActiveObjectData>(ObjectType.Player), inputController, out var player));
+            controllers.Add(new EnemyController(data, player));
+
+            controllers.Add(new CameraController(player, new Vector3 (0,0,-10), out var currentCamera));
         }
     }
 }

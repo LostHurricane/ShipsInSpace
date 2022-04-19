@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public interface IRigidBody
+    public interface IRigidBody: IView
     {
         Rigidbody2D Rigidbody { get; }
 

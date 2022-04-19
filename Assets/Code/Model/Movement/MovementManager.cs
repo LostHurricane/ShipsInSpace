@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class MovementManager : IMove, IRotation
+    public class MovementManager : IMove, IRotation, ISetRigidBody
     {
         private readonly IMove _moveImplementation;
         private readonly IRotation _rotationImplementation;
@@ -25,6 +25,20 @@ namespace ShipsInSpace
         public void Rotation(Vector3 direction, float deltaTime)
         {
             _rotationImplementation.Rotation(direction, deltaTime);
+        }
+
+        public void SetRigidBody(Rigidbody2D rigidbody)
+        {
+            if (_moveImplementation is ISetRigidBody setRigidBodyM)
+            {
+                setRigidBodyM.SetRigidBody(rigidbody);
+
+            }
+
+            if (_rotationImplementation is ISetRigidBody setRigidBodyR)
+            {
+                setRigidBodyR.SetRigidBody(rigidbody);
+            }
         }
     }
 }

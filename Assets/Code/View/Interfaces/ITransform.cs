@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public interface ITransform
+    public interface ITransform: IView
     {
         Transform Transform { get; }
     }

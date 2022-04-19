@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class GradualRigidBodyRotation : IRotation
+    public class GradualRigidBodyRotation : IRotation, ISetRigidBody
     {
         private Rigidbody2D _rigidBody;
 
@@ -22,11 +22,15 @@ namespace ShipsInSpace
 
             Vector3 newDirection = Vector3.RotateTowards(_rigidBody.transform.up, direction, _rotationSpeed * deltaTime, 0f);
             _angle = -(Mathf.Atan2(newDirection.x, newDirection.y) * Mathf.Rad2Deg);
-            _rigidBody.SetRotation(Quaternion.AngleAxis(_angle, Vector3.forward));
-
+            _rigidBody.SetRotation(_angle);
 
         }
 
-       
+        public void SetRigidBody(Rigidbody2D rigidbody)
+        {
+            _rigidBody = rigidbody;
+        }
+
+
     }
 }
