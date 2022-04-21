@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public interface ISpriteRenderer
+    public interface ISpriteRenderer: IView
     {
         SpriteRenderer SpriteRenderer { get; }
 

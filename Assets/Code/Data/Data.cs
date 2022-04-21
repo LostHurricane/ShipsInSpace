@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace ShipsInSpace
             public ObjectType Type;
             public string PathTo;
             public ScriptableObject Data;
-            //public IObjectData Data;
+
         }
     }
     

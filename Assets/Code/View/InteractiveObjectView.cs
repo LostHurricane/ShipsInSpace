@@ -1,12 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class InteractiveObjectView : MonoBehaviour, ITransform, IRigidBody, ICollider, ISpriteRenderer, IDamagible
+    public class InteractiveObjectView : MonoBehaviour, IView, ITransform, IRigidBody, ICollider, ISpriteRenderer, IDamagible
     {
+        [SerializeField]
+        private GameObject _gameObject;
+        public GameObject GameObject { get => _gameObject; set => _gameObject = value; }
+
         [SerializeField]
         private Transform _transform;
         public Transform Transform { get => _transform; set => _transform = value; }
@@ -24,6 +26,7 @@ namespace ShipsInSpace
         public SpriteRenderer SpriteRenderer { get => _spriteRenderer; set => _spriteRenderer = value; }
 
         public Action<int> OnDamageTaken { get; set; }
+
 
         public void TakeDamage(int damage)
         {
