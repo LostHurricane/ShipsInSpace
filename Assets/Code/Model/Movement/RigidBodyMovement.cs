@@ -23,5 +23,11 @@ namespace ShipsInSpace
             _rigidbody.velocity = _movementVector;
         }
 
+        public void Move(Rigidbody2D rigidbody, float horizontal, float vertical, float deltaTime)
+        {
+            _movementVector.Set(horizontal * Speed, vertical * Speed, 0);
+            rigidbody.velocity = _movementVector;
+        }
+
     }
 }

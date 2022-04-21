@@ -20,10 +20,10 @@ namespace ShipsInSpace
         {
             _angle = -(Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
 
-            Debug.Log(_angle);
             _rigidBody.SetRotation(Quaternion.AngleAxis(_angle, Vector3.forward));
         }
 
         
+
     }
 }

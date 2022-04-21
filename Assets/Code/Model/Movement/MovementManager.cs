@@ -9,7 +9,7 @@ namespace ShipsInSpace
         private readonly IMove _moveImplementation;
         private readonly IRotation _rotationImplementation;
 
-        public float Speed => throw new System.NotImplementedException();
+        public float Speed => _moveImplementation.Speed;
 
         public MovementManager(IMove moveImplementation, IRotation rotationImplementation)
         {
