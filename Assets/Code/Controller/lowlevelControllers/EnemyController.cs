@@ -9,11 +9,14 @@ namespace ShipsInSpace
 {
     public class EnemyController : IController, IInitialization, IExecute, IFixedExecute, ICleanup
     {
+        private ActiveObjectData _enemyData;
+
         private int _hitPoints;
         private float _speed;
         private Transform _player;
 
         private Placer _placer;
+        private IPool<ProjectileView> _enemyProjectilePool;
 
         private List<IView> _views;
         private HashSet<IBehaviour> _behaviours;
@@ -25,12 +28,15 @@ namespace ShipsInSpace
 
         public EnemyController(Data data, Transform player)
         {
-            _hitPoints = data.GetData<ActiveObjectData>(ObjectType.Enemy).HitPoints;
-            _speed = data.GetData<ActiveObjectData>(ObjectType.Enemy).Speed;
             _player = player;
 
-            var _prototype = data.GetData<ActiveObjectData>(ObjectType.Enemy).GetPrefab().GetComponent<IView>();
-            _placer = new Placer(new RegularFactory<GameObject>(_prototype.GameObject));
+            _enemyData = data.GetData<ActiveObjectData>(ObjectType.Enemy);
+            
+            _hitPoints = _enemyData.HitPoints;
+            _speed = _enemyData.Speed;
+            
+            var _prototype = _enemyData.GetPrefab();
+            _placer = new Placer(new RegularFactory<GameObject>(_prototype.gameObject));
 
             _views = new List<IView>();
             _behaviours = new HashSet<IBehaviour>();
@@ -38,6 +44,8 @@ namespace ShipsInSpace
 
             _placer.MassSpawn(_views, data.GetData<Coordinates>(ObjectType.EnemyPlacement).GetCoordinates());
 
+
+            _enemyProjectilePool = new ProjectilePool<ProjectileView>(_enemyData.WeaponData.GetPrefab<ProjectileView>(), 8 );
         }
 
         public void Initialization()
@@ -87,12 +95,13 @@ namespace ShipsInSpace
 
         private void SetUpNewEnemy(IView view)
         {
-            if (view is IRigidBody rigidBodyView)
+            if ((view is IRigidBody rigidBodyView) && (view is ITransform transformView) && (view is IArmed armedView))
             {
                 var movementManager = new MovementManager(new RigidBodyMovement(rigidBodyView.Rigidbody, _speed), new GradualRigidBodyRotation(rigidBodyView.Rigidbody, _speed));
-                _behaviours.Add(new EnemyShipBehaviour(movementManager, null, view, _player));
-
+                var weapon = new BasicWeapon<ProjectileView>(_enemyProjectilePool, armedView.WeaponTransform, _enemyData.WeaponData.WeaponStats);
+                _behaviours.Add(new EnemyShipBehaviour(movementManager, new WeaponAttackManager (weapon, transformView.Transform, _player), view, _player));
             }
+
 
             if (view is IDamagible damagibleView)
             {

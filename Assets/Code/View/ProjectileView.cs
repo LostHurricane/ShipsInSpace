@@ -31,7 +31,13 @@ namespace ShipsInSpace
             if(collision.transform.TryGetComponent<IDamagible>(out var target))
             {
                 OnDealingDamage.Invoke(target);
+                ReturnToPool();
             }
+        }
+
+        public void ReturnToPool()
+        {
+            OnReturnToPool.Invoke(transform);
         }
     }
 }

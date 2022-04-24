@@ -25,6 +25,7 @@ namespace ShipsInSpace
             return (T)temp.Data;
         }
 
+
         [Serializable]
         private struct DataPathSet
         {

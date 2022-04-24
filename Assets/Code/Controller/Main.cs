@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace ShipsInSpace
 {
+
     public class Main : MonoBehaviour
     {
         // [SerializeField] private InteractiveObjectView _player; //Test field
@@ -13,20 +17,14 @@ namespace ShipsInSpace
         [SerializeField]
         private Data _gameData;
 
-        private Camera _currentCamera;
-
-
+        public KeyCodeGameObjectListDictionary test;
 
         // Start is called before the first frame update
         void Awake()
-        {
-            _currentCamera = Camera.current;
+        { 
             _controllers = new Controllers();
             new Initializer(_controllers, _gameData);
             _controllers.Initialization();
-
-
-            
 
         }
 
@@ -48,4 +46,8 @@ namespace ShipsInSpace
             _controllers.Cleanup();
         }
     }
+
+
+    [Serializable]
+    public class KeyCodeGameObjectListDictionary : DictionarySerialized<int, string> { }
 }

@@ -103,6 +103,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 1326877256624635212}
   _collider: {fileID: 0}
   _spriteRenderer: {fileID: 1326877256624635202}
+  _weaponTransform: {fileID: 6660344686412635765}
 --- !u!50 &1326877256624635212
 Rigidbody2D:
   serializedVersion: 4

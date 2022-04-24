@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class InputController : IInitialization, IExecute, ICleanup, ShipsInSpaceSV.IService
+    public class InputController : IInitialization, IExecute, ICleanup
     {
         private HashSet<IInput> _inputs;
 
@@ -33,19 +33,15 @@ namespace ShipsInSpace
             _inputs = new HashSet<IInput>();
 
 
-            //var inputCursorPosition = new InputCursorPosition();
             _inputCursorPosition.InputOnChange += UpdateCursorPosition;
             _inputs.Add(_inputCursorPosition);
 
-            //var vertical = new InputAxis("Vertical");
             _vertical.InputOnChange += UpdateVertical;
             _inputs.Add(_vertical);
 
-            //var horizontal = new InputAxis("Horizontal");
             _horizontal.InputOnChange += UpdateHorizontal;
             _inputs.Add(_horizontal);
 
-            //var fire = new InputButtonPressed("Fire1");
             _fire.InputOnChange += UpdateFireButton;
             _inputs.Add(_fire);
 

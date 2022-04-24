@@ -34,12 +34,7 @@ namespace ShipsInSpace
 
         public void ChangeCurrentBy(int amount)
         {
-            //Debug.Log("current health health" + Current);
-
             Current += amount;
-
-            //Debug.Log("current health after health" + Current);
-
         }
 
         public void ResetToMax()

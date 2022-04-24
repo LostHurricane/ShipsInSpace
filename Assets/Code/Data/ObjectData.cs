@@ -19,5 +19,13 @@ namespace ShipsInSpace
                 throw new Exception("Prefab is empty");
         }
 
+
+        public T GetPrefab <T> () 
+        {
+            if (_prefab && _prefab.TryGetComponent<T>(out var component))
+                return component;
+            else
+                throw new Exception("Prefab is empty");
+        }
     }
 }
