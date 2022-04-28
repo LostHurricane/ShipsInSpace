@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace ShipsInSpace
 {
-    public interface IWeapon
+    public interface IWeapon 
     {
-        void Fire();
+        Transform ShootingPoint { get; }
     }
 }

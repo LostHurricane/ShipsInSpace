@@ -99,7 +99,7 @@ namespace ShipsInSpace
             {
                 var movementManager = new MovementManager(new RigidBodyMovement(rigidBodyView.Rigidbody, _speed), new GradualRigidBodyRotation(rigidBodyView.Rigidbody, _speed));
                 var weapon = new BasicWeapon<ProjectileView>(_enemyProjectilePool, armedView.WeaponTransform, _enemyData.WeaponData.WeaponStats);
-                _behaviours.Add(new EnemyShipBehaviour(movementManager, new WeaponAttackManager (weapon, transformView.Transform, _player), view, _player));
+                _behaviours.Add(new EnemyShipBehaviour(movementManager, new NPWeaponAttackManager (weapon, transformView.Transform, _player), view, _player));
             }
 
 

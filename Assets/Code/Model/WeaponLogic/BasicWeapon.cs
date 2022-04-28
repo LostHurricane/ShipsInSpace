@@ -5,29 +5,33 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class BasicWeapon <T> : IWeapon where T: MonoBehaviour, ITransform, IRigidBody, IDamageDealer
+    public class BasicWeapon <T> : IFire, IChangeDamage where T: ITransform, IRigidBody, IDamageDealer
     {
-        protected int _damage { get; set; }
-        protected float _shootingForce { get; set; }
-        protected Transform _shootingPoint { get; set; }
 
+        public int Damage { get; protected set; }
+        public Transform ShootingPoint { get; protected set; }
+        public float ShootingForce { get; protected set; }
+
+        private Color _ammunitionColor = Color.green;
         private IPool<T> _projectilePool;
 
         public BasicWeapon (IPool<T> pool, Transform shootingPoint, WeaponStats weaponStats)
         {
             _projectilePool = pool;
-            _shootingForce = weaponStats.PushForce;
-            _shootingPoint = shootingPoint;
-            _damage = weaponStats.Damage;
+            ShootingForce = weaponStats.PushForce;
+            ShootingPoint = shootingPoint;
+            Damage = weaponStats.Damage;
         }
 
         public void Fire()
         {
-            SetUpBullet().Rigidbody.AddForce(_shootingPoint.up * _shootingForce, ForceMode2D.Impulse);
-         
+            SetUpBullet().Rigidbody.AddForce(ShootingPoint.up * ShootingForce, ForceMode2D.Impulse);
         }
 
-
+        public void ChangeAmmunitionColour(Color color)
+        {
+            _ammunitionColor = color;
+        }
         private T SetUpBullet()
         {
             var temp = _projectilePool.GetNewObject();
@@ -37,18 +41,27 @@ namespace ShipsInSpace
                 temp.OnDealingDamage += DealDamage;
             }
 
-            temp.gameObject.SetActive(true);
-            temp.Transform.SetParent(_shootingPoint);
+            if (_ammunitionColor != null && temp is ISpriteRenderer renderer)
+            {
+                renderer.SpriteRenderer.color = _ammunitionColor;
+            }
+
+            temp.GameObject.SetActive(true);
+            temp.Transform.SetParent(ShootingPoint);
             temp.Transform.localPosition = Vector3.zero;
             temp.Transform.localRotation = Quaternion.identity;
             return temp;
         }
 
-        private void DealDamage (IDamagible target)
+        public void ChangeDamage(int damage)
         {
-            target.TakeDamage(_damage);
+            Damage += damage;
+            Debug.Log("damage changed to" + Damage);
         }
 
-        
+        private void DealDamage (IDamagible target)
+        {
+            target.TakeDamage(Damage);
+        } 
     }
 }

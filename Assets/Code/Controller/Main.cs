@@ -17,7 +17,8 @@ namespace ShipsInSpace
         [SerializeField]
         private Data _gameData;
 
-        public KeyCodeGameObjectListDictionary test;
+        [SerializeField]
+        private KeyCodeGameObjectListDictionary test = new KeyCodeGameObjectListDictionary();
 
         // Start is called before the first frame update
         void Awake()
@@ -49,5 +50,5 @@ namespace ShipsInSpace
 
 
     [Serializable]
-    public class KeyCodeGameObjectListDictionary : DictionarySerialized<int, string> { }
+    public class KeyCodeGameObjectListDictionary : DictionarySerialized<int, int> { }
 }

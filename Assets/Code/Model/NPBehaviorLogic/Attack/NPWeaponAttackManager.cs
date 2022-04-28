@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class WeaponAttackManager : IAttack
+    public class NPWeaponAttackManager : IAttack
     {
         private const float AIM_THRESHHOLD = 5f;
 
-        private IWeapon _weaponInplementation;
+        private IFire _weaponInplementation;
         private Transform _weaponPoint;
         private Transform _target;
 
@@ -18,11 +18,27 @@ namespace ShipsInSpace
         private float _coolDown = 0.5f;
         private bool _readyToShoot;
 
-        public WeaponAttackManager (IWeapon weapon, Transform view, Transform target)
+        public NPWeaponAttackManager (IFire weapon, Transform view, Transform target)
         {
             _weaponPoint = view;
-            _weaponInplementation = weapon;
             _target = target;
+            _weaponInplementation = weapon;
+
+
+            if (weapon is BasicWeapon<ProjectileView> modifiable)
+            {
+                ModificationWeapon modifier = new ProjectileColourChanger(Color.cyan);
+                modifier.ApplyModification(modifiable);
+                _weaponInplementation = modifier;
+
+            }
+            else
+            {
+                _weaponInplementation = weapon;
+            }
+
+            
+
         }
 
         public void Attack(float deltaTime)
@@ -35,7 +51,7 @@ namespace ShipsInSpace
                     _readyToShoot = false;
                 }
 
-                Debug.Log("attack");
+                //Debug.Log("attack");
             }
             Timeout(deltaTime);
 

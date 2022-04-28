@@ -179,3 +179,4 @@ MonoBehaviour:
   _transform: {fileID: 7656723552012035742}
   _rigidbody: {fileID: 5380103753596904284}
   _collider: {fileID: 6519191886105374067}
+  _spriteRenderer: {fileID: 5666622001410784958}
