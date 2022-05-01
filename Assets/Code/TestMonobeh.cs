@@ -14,6 +14,7 @@ namespace ShipsInSpace
 
         void Awake()
         {
+            /*
             _saver = new DataSaver<Root[]> ();
             _units = new List<Unit>();
             _unitsSortedByType = new Dictionary<string, List<Unit>>();
@@ -42,7 +43,14 @@ namespace ShipsInSpace
                     Debug.Log(unit.ToString());
                 }
             }
-            
+            */
+            Debug.Log(PointsInterpreter.Interpret(100));
+
+            Debug.Log(PointsInterpreter.Interpret (1000));
+            Debug.Log(PointsInterpreter.Interpret (2123.32f));
+            Debug.Log(PointsInterpreter.Interpret(30040));
+            Debug.Log(PointsInterpreter.Interpret(2000000));
+
 
         }
 
