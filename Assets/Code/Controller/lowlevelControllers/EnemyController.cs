@@ -9,6 +9,8 @@ namespace ShipsInSpace
 {
     public class EnemyController : IController, IInitialization, IExecute, IFixedExecute, ICleanup
     {
+        private ProgressController _progressController;
+
         private ActiveObjectData _enemyData;
 
         private int _hitPoints;
@@ -23,10 +25,10 @@ namespace ShipsInSpace
         private HashSet<ICleanup> _healths;
 
 
+        private GroupHealthManager _groupHealth;
 
 
-
-        public EnemyController(Data data, Transform player)
+        public EnemyController(Data data, Transform player, ProgressController progressController)
         {
             _player = player;
 
@@ -46,6 +48,12 @@ namespace ShipsInSpace
 
 
             _enemyProjectilePool = new ProjectilePool<ProjectileView>(_enemyData.WeaponData.GetPrefab<ProjectileView>(), 8 );
+
+
+            _groupHealth = new GroupHealthManager();
+            _progressController = progressController;
+            _groupHealth.DeathImplementator.OnDeath += _progressController.EnemyDied;
+
         }
 
         public void Initialization()
@@ -68,10 +76,10 @@ namespace ShipsInSpace
             }
 
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                RecreateFrom(Vector2.zero, (EnemyShipBehaviour)_behaviours.FirstOrDefault(), (HealthManager)_healths.FirstOrDefault());
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    RecreateFrom(Vector2.zero, (EnemyShipBehaviour)_behaviours.FirstOrDefault(), (HealthManager)_healths.FirstOrDefault());
+            //}
 
         }
 
@@ -91,6 +99,7 @@ namespace ShipsInSpace
             {
                 healthManager.Cleanup();
             }
+            _groupHealth.DeathImplementator.OnDeath -= _progressController.EnemyDied;
         }
 
         private void SetUpNewEnemy(IView view)
@@ -105,8 +114,8 @@ namespace ShipsInSpace
 
             if (view is IDamagible damagibleView)
             {
-                _healths.Add(new HealthManager(damagibleView, _hitPoints));
-
+                //_healths.Add(new HealthManager(damagibleView, _hitPoints));
+                _groupHealth.AddToTheGroup(damagibleView, _hitPoints, 1);
             }
 
             view.GameObject.GetComponent<ISpriteRenderer>().SpriteRenderer.color = Color.red;

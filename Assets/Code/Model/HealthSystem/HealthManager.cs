@@ -82,7 +82,7 @@ namespace ShipsInSpace
             if (amount < 0)
             {
                 healthChange = (int)(amount / _armorFactor);
-                Debug.Log($"new damage throu armor {healthChange}");
+                //Debug.Log($"new damage throu armor {healthChange}");
             }
 
             _healthStat.ChangeCurrentBy(healthChange);

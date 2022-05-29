@@ -8,11 +8,11 @@ namespace ShipsInSpace
     public class Coordinates : ScriptableObject
     {
         [SerializeField]
-        private List<Vector2> _coordinates;
+        private Vector2 [] _coordinates;
 
         public Vector2[] GetCoordinates()
         {
-            return _coordinates.ToArray();
+            return _coordinates;
         }
     }
 }

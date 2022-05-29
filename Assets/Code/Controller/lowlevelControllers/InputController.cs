@@ -18,10 +18,10 @@ namespace ShipsInSpace
         public float AxisVertical { get; private set; }
         public bool Fire { get; private set; }
 
-        public void UpdateCursorPosition(Vector3 value) => MousePosition = value;
-        public void UpdateHorizontal(float value) => AxisHorizontal = value;
-        public void UpdateVertical(float value) => AxisVertical = value;
-        public void UpdateFireButton(bool value) => Fire = value;
+        private void UpdateCursorPosition(Vector3 value) => MousePosition = value;
+        private void UpdateHorizontal(float value) => AxisHorizontal = value;
+        private void UpdateVertical(float value) => AxisVertical = value;
+        private void UpdateFireButton(bool value) => Fire = value;
 
         public InputController(out InputController inputController)
         {

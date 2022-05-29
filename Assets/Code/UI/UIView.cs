@@ -3,39 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
+
 
 namespace ShipsInSpaceUI
 {
-    public class UIController : MonoBehaviour
+    public class UIView : MonoBehaviour
     {
         [SerializeField]
         private Canvas _canvas;
-        public Canvas Canvas { get; set; }
+        public Canvas Canvas => _canvas;
 
         [SerializeField]
-        private List<PanelProperty> panelProperties;
+        private List<PanelProperty> panels;
+        public List<PanelProperty> Panels => panels;
+
+        [SerializeField]
+        private List<UIElementSet> UIElements;
 
         private MainMenu mainMenu;
         private ColourSettingsPanel colourSettings;
         private TimeSetingsPanel timeSetings;
-
-
-
+        
         private readonly Stack<StateUI> _stateUi = new Stack<StateUI>();
         private BaseUi _currentWindow;
 
+        public GameObject GetUIElement (string name)
+        {
+            var n = UIElements.FirstOrDefault(element => element.EnementName == name);
+
+            Debug.Log(n.EnementName);
+            return n.UIElement;
+            //return UIElements.FirstOrDefault(element => element.EnementName == name).UIElement;
+        }
+
         private void Start()
         {
-            var property = panelProperties.FirstOrDefault(panel => panel.Window == StateUI.MainMenu);
+            var property = panels.FirstOrDefault(panel => panel.Window == StateUI.MainMenu);
             mainMenu = new MainMenu(property.GameObject, property.Components[0].GetComponent<Button>(), property.Components[1].GetComponent<Button>());
             mainMenu.Cancel();
 
-            property = panelProperties.FirstOrDefault(panel => panel.Window == StateUI.PanelColourSettings);
+            property = panels.FirstOrDefault(panel => panel.Window == StateUI.PanelColourSettings);
             colourSettings = new ColourSettingsPanel(property.GameObject, property.Components[0].GetComponent<Slider>(), 
                 property.Components[1].GetComponent<Slider>(), property.Components[2].GetComponent<Slider>());
             colourSettings.Cancel();
 
-            property = panelProperties.FirstOrDefault(panel => panel.Window == StateUI.PanelTimeSettings);
+            property = panels.FirstOrDefault(panel => panel.Window == StateUI.PanelTimeSettings);
             timeSetings = new TimeSetingsPanel(property.GameObject, property.Components[0].GetComponent<Slider>());
             timeSetings.Cancel();
 

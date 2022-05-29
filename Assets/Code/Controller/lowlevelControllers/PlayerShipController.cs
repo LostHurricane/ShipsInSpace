@@ -36,6 +36,7 @@ namespace ShipsInSpace
         {
             _camera = Camera.current;
             _playerStats = new PlayerStatsManager(_player, _playerData.HitPoints);
+            
             var mods = new ActiveObjectModifier();
             mods.Add(new ArmorModifier(_playerStats.HealthManager, 3));
             mods.Add(new WeaponDamageModifier(_weapon as IChangeDamage, 10));
