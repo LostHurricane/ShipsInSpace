@@ -10,7 +10,7 @@ namespace ShipsInSpace
 
     public class Main : MonoBehaviour
     {
-        [SerializeField] private ShipsInSpaceUI.UIView _ui; //Test field
+        //[SerializeField] private ShipsInSpaceUI.UIView _ui; //Test field
 
         private Controllers _controllers;
 
@@ -24,7 +24,7 @@ namespace ShipsInSpace
         void Awake()
         { 
             _controllers = new Controllers();
-            new Initializer(_controllers, _gameData, _ui);
+            new Initializer(_controllers, _gameData);
             _controllers.Initialization();
 
         }

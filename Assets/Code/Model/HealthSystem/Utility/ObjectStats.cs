@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class ObjectStats : ICleanup
+    public class ObjectStats
     {
         public int Health { get => _healthStat.Current; }
         public Action <IView> OnZeroHp;
-        public IView View { get; private set; }
+
 
         private HealthStat _healthStat;
         private float _armor;
@@ -18,12 +18,6 @@ namespace ShipsInSpace
         {
             _healthStat = new HealthStat(maxHp);
             _armor = armor;
-            View = view;
-            if (view is IDamagible damagible)
-            {
-                damagible.OnDamageTaken += TakeDamage;
-            }
-
         }
 
         public void SetParameters(int maxHP, float armor)
@@ -32,7 +26,7 @@ namespace ShipsInSpace
             _armor = armor;
         }
 
-        public void TakeDamage(int amount)
+        public void TakeDamage(IDamagible damagible, int amount)
         {
             Debug.Log($"inputDamage{amount}");
             var healthChange = Mathf.Abs(amount);
@@ -44,15 +38,10 @@ namespace ShipsInSpace
 
             _healthStat.ChangeCurrentBy(-healthChange);
 
-
-           
-
-
-            if (_healthStat.Current<=0)
+            if (_healthStat.Current<=0 && damagible.GameObject.activeSelf )
             {
                 Debug.Log("Death");
-                //View.GameObject.SetActive(false);
-                OnZeroHp.Invoke(View);
+                OnZeroHp.Invoke(damagible);
             }
         }
 
@@ -63,13 +52,6 @@ namespace ShipsInSpace
             _healthStat.ResetToMax();
         }
 
-        public void Cleanup()
-        {
-            if (View is IDamagible damagible)
-            {
-                damagible.OnDamageTaken -= TakeDamage;
-            }
-        }
 
     }
 }

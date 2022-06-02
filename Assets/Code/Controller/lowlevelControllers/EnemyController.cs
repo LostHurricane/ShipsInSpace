@@ -42,7 +42,6 @@ namespace ShipsInSpace
 
             _views = new List<IView>();
             _behaviours = new HashSet<IBehaviour>();
-            _healths = new HashSet<ICleanup>();
 
             _placer.MassSpawn(_views, data.GetData<Coordinates>(ObjectType.EnemyPlacement).GetCoordinates());
 
@@ -95,10 +94,7 @@ namespace ShipsInSpace
 
         public void Cleanup()
         {
-            foreach (var healthManager in _healths)
-            {
-                healthManager.Cleanup();
-            }
+            _groupHealth.Cleanup();
             _groupHealth.DeathImplementator.OnDeath -= _progressController.EnemyDied;
         }
 
@@ -114,33 +110,13 @@ namespace ShipsInSpace
 
             if (view is IDamagible damagibleView)
             {
-                //_healths.Add(new HealthManager(damagibleView, _hitPoints));
                 _groupHealth.AddToTheGroup(damagibleView, _hitPoints, 1);
             }
 
             view.GameObject.GetComponent<ISpriteRenderer>().SpriteRenderer.color = Color.red;
         }
 
-        private void RecreateFrom(Vector3 position, EnemyShipBehaviour behaviourPrototype, HealthManager healthManagerPrototype)
-        {
-            var view = _placer.SingleSpawn(position);
-            EnemyShipBehaviour enemyShipBehaviour = (EnemyShipBehaviour)behaviourPrototype.Clone();
-            HealthManager healthManager = (HealthManager)healthManagerPrototype.Clone();
-            if (view is IRigidBody rigidBodyView)
-            {
-                enemyShipBehaviour.SetView(view).SetTarget(_player).SetRigidBody(rigidBodyView.Rigidbody);
-            }
 
-            if (view is IDamagible damagibleView)
-            {
-                healthManager.SetView(damagibleView).SetAction();
-            }
-            view.GameObject.GetComponent<ISpriteRenderer>().SpriteRenderer.color = Color.red;
-
-            _views.Add(view);
-            _behaviours.Add(enemyShipBehaviour);
-            _healths.Add(healthManager);
-        }
 
         
     }

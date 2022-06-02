@@ -10,11 +10,11 @@ namespace ShipsInSpace
         {
             string marker;
             int count = Mathf.Abs((int)(value / 1000000));
-            marker = "M";
+            marker = " M";
             if (count <= 0)
             {
                 count = Mathf.Abs((int)(value / 1000));
-                marker = "K";
+                marker = " K";
 
                 if (count <= 0)
                 {

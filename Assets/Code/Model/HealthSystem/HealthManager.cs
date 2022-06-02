@@ -66,7 +66,7 @@ namespace ShipsInSpace
             return this;
         }
 
-        private void TakeDamage (int damage)
+        private void TakeDamage (IDamagible view, int damage)
         {
             ChangeHealth(-damage);
             if (_healthStat.Current <= 0)

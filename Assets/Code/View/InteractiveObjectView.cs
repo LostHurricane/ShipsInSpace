@@ -30,12 +30,12 @@ namespace ShipsInSpace
         public Transform WeaponTransform { get => _weaponTransform; set => _weaponTransform = value; }
 
 
-        public Action<int> OnDamageTaken { get; set; }
+        public Action<IDamagible, int> OnDamageTaken { get; set; }
 
 
         public void TakeDamage(int damage)
         {
-            OnDamageTaken.Invoke(damage);
+            OnDamageTaken.Invoke(this, damage);
         }
     }
 }

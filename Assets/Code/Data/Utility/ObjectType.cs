@@ -6,6 +6,7 @@ namespace ShipsInSpace
        Bullet = 1,
        Enemy = 2,
        EnemyPlacement = 3,
-       Obstacle = 4
+       Obstacle = 4,
+       UI = 5
     }
 }

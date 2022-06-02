@@ -9,14 +9,14 @@ namespace ShipsInSpace
     public class GroupHealthManager : ICleanup
     {
         public DeathImplementator DeathImplementator;
-        //Using Dictionary in case of searching for specific view
+        
         private Dictionary<IDamagible, ObjectStats> _group;
-        //private HashSet<ObjectStats> _objects;
+
 
         public GroupHealthManager ()
         {
             _group = new Dictionary<IDamagible, ObjectStats>();
-            //_objects = new HashSet<ObjectStats>();
+
             DeathImplementator = new DeathImplementator();
         }
 
@@ -26,12 +26,13 @@ namespace ShipsInSpace
 
             _group.Add(view, stats);
             DeathImplementator.Implement(stats);
+            view.OnDamageTaken += stats.TakeDamage;
 
         }
 
         public void ResetStats (IDamagible damagible, int maxHp, float armor)
         {
-            //_objects.FirstOrDefault(stats => stats.View == damagible);
+
 
             if (_group.ContainsKey(damagible))
             {
@@ -41,9 +42,9 @@ namespace ShipsInSpace
 
         public void Cleanup()
         {
-            foreach (var stat in _group)
+            foreach (var pair in _group)
             {
-                stat.Value.Cleanup();
+                pair.Key.OnDamageTaken -= pair.Value.TakeDamage;
             }
             DeathImplementator.Cleanup();
         }

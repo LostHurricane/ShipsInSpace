@@ -19,8 +19,14 @@ namespace ShipsInSpaceUI
         {
 
             _slider = slider;
+            _slider.value = Time.timeScale;
+            _slider.maxValue = 3f;
+            _slider.minValue = 0f;
+
             _text = _panel.GetComponentInChildren<Text>();
             SetDependencies();
+            _text.text = Time.timeScale.ToString();
+            
         }
 
         private void SetDependencies ()
@@ -31,7 +37,7 @@ namespace ShipsInSpaceUI
 
         public void ScrollCheck(float value)
         {
-            var newValue = value * 3;
+            var newValue = value;
             _text.text = newValue.ToString();
 
             Time.timeScale = newValue;

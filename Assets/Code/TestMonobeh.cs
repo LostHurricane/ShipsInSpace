@@ -44,13 +44,14 @@ namespace ShipsInSpace
                 }
             }
             */
-            Debug.Log(PointsInterpreter.Interpret(100));
 
+            /*
+            Debug.Log(PointsInterpreter.Interpret(100));
             Debug.Log(PointsInterpreter.Interpret (1000));
             Debug.Log(PointsInterpreter.Interpret (2123.32f));
             Debug.Log(PointsInterpreter.Interpret(30040));
             Debug.Log(PointsInterpreter.Interpret(2000000));
-
+            */
 
         }
 

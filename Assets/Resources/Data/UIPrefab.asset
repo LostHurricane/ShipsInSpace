@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed5d09ff44327a4ab475b325ac7cf77, type: 3}
-  m_Name: EnemyCoordinatesSet
+  m_Script: {fileID: 11500000, guid: ada958fb2ff04e94bbe7439094ec3d52, type: 3}
+  m_Name: UIPrefab
   m_EditorClassIdentifier: 
-  _coordinates:
-  - {x: -4, y: -1.5}
-  - {x: -8.43, y: -1.5}
-  - {x: 6.93, y: -1.5}
+  _prefab: {fileID: 1493787296466522050, guid: ad1f2b1b0d7c1094b9394058a2a02572, type: 3}

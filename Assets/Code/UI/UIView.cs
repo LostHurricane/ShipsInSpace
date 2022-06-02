@@ -31,11 +31,8 @@ namespace ShipsInSpaceUI
 
         public GameObject GetUIElement (string name)
         {
-            var n = UIElements.FirstOrDefault(element => element.EnementName == name);
-
-            Debug.Log(n.EnementName);
-            return n.UIElement;
-            //return UIElements.FirstOrDefault(element => element.EnementName == name).UIElement;
+            
+            return UIElements.FirstOrDefault(element => element.EnementName == name).UIElement;
         }
 
         private void Start()

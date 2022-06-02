@@ -25,3 +25,6 @@ MonoBehaviour:
   - Type: 3
     PathTo: EnemyCoordinatesSet
     Data: {fileID: 0}
+  - Type: 5
+    PathTo: UIPrefab
+    Data: {fileID: 0}

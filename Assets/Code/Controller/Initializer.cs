@@ -6,7 +6,7 @@ namespace ShipsInSpace
 {
     public sealed class Initializer
     {
-        public Initializer(Controllers controllers, Data data, ShipsInSpaceUI.UIView ui)
+        public Initializer(Controllers controllers, Data data)
         {
             controllers.Add(new InputController(out var inputController));
 
@@ -18,7 +18,7 @@ namespace ShipsInSpace
             controllers.Add(new EnemyController(data, player, progressController));
 
             controllers.Add(new CameraController(player, new Vector3 (0,0,-10), out var currentCamera));
-            controllers.Add(new UIController(ui, inputController, progressController, currentCamera));
+            controllers.Add(new UIController(data, inputController, progressController, currentCamera));
 
         }
     }

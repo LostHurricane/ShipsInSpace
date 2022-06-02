@@ -14,10 +14,10 @@ namespace ShipsInSpace
 
         private TextMeshProUGUI _pointsIndicator;
 
-        public UIController (UIView prefab, InputController inputController, ProgressController progressController, Camera camera )
+        public UIController (Data data, InputController inputController, ProgressController progressController, Camera camera )
         {
-            _uIView = prefab;
-            //_uIView = new RegularFactory<UIView>(prefab).GetNewObject();
+            var prefab = data.GetData<ObjectData>(ObjectType.UI).GetPrefab<UIView>();
+            _uIView = new RegularFactory<UIView>(prefab).GetNewObject();
             _uIView.Canvas.worldCamera = camera;
             _progressController = progressController;
 
@@ -29,7 +29,8 @@ namespace ShipsInSpace
         public void Execute(float deltaTime)
         {
             //Debug.Log(_progressController.points);
-            _pointsIndicator.text = _progressController.points.ToString();
+            
+            _pointsIndicator.text = PointsInterpreter.Interpret(_progressController.points);
         }
 
         

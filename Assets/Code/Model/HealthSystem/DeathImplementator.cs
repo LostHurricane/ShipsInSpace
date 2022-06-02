@@ -26,6 +26,7 @@ namespace ShipsInSpace
 
         private void Death (IView view)
         {
+            Debug.Log(view.GameObject.name + " died");
             view.GameObject.SetActive(false);
             if (OnDeath != null)
             {
