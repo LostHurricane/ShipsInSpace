@@ -7,10 +7,42 @@ namespace ShipsInSpace
 {
     public class HealthManager: ICleanup, ICloneable
     {
+        public int Health { get => _healthStat.Current; }
+
+        private float _armorFactor;
+        public float ArmorFactor 
+        {
+            get => ArmorFactor;
+            set
+            {
+                if (value < 0.1f)
+                {
+                    _armorFactor = 0.33f;
+                }
+                else if (value > 3f)
+                {
+                    _armorFactor = 3f;
+                }
+                else
+                {
+                    _armorFactor = value;
+                }
+            }
+        }
+
         private IDamagible _view; 
         private HealthStat _healthStat;
+
         public HealthManager(IDamagible view, int maxHp)
         {
+            ArmorFactor = 1;
+            SetView(view).SetAction();
+            _healthStat = new HealthStat(maxHp);
+        }
+
+        public HealthManager(IDamagible view, int maxHp, float armorFactor)
+        {
+            ArmorFactor = armorFactor;
             SetView(view).SetAction();
             _healthStat = new HealthStat(maxHp);
         }
@@ -34,7 +66,7 @@ namespace ShipsInSpace
             return this;
         }
 
-        private void TakeDamage (int damage)
+        private void TakeDamage (IDamagible view, int damage)
         {
             ChangeHealth(-damage);
             if (_healthStat.Current <= 0)
@@ -45,7 +77,16 @@ namespace ShipsInSpace
 
         private void ChangeHealth(int amount)
         {
-            _healthStat.ChangeCurrentBy(amount);
+            Debug.Log($"inputDamage{amount}");
+            var healthChange = amount;
+            if (amount < 0)
+            {
+                healthChange = (int)(amount / _armorFactor);
+                //Debug.Log($"new damage throu armor {healthChange}");
+            }
+
+            _healthStat.ChangeCurrentBy(healthChange);
+
         }
 
         public void Cleanup()

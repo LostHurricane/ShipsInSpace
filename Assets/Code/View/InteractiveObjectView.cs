@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class InteractiveObjectView : MonoBehaviour, IView, ITransform, IRigidBody, ICollider, ISpriteRenderer, IDamagible
+    public class InteractiveObjectView : MonoBehaviour, IView, ITransform, IRigidBody, ICollider, ISpriteRenderer, IDamagible, IArmed
     {
         [SerializeField]
         private GameObject _gameObject;
@@ -25,12 +25,17 @@ namespace ShipsInSpace
         private SpriteRenderer _spriteRenderer;
         public SpriteRenderer SpriteRenderer { get => _spriteRenderer; set => _spriteRenderer = value; }
 
-        public Action<int> OnDamageTaken { get; set; }
+        [SerializeField]
+        private Transform _weaponTransform;
+        public Transform WeaponTransform { get => _weaponTransform; set => _weaponTransform = value; }
+
+
+        public Action<IDamagible, int> OnDamageTaken { get; set; }
 
 
         public void TakeDamage(int damage)
         {
-            OnDamageTaken.Invoke(damage);
+            OnDamageTaken.Invoke(this, damage);
         }
     }
 }

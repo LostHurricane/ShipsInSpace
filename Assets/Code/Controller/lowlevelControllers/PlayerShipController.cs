@@ -8,27 +8,39 @@ namespace ShipsInSpace
     {
         private InputController _inputController;
 
+        private ActiveObjectData _playerData;
         private InteractiveObjectView _player;
         private MovementManager _movementManager;
-        private IWeapon _weapon;
+        private IFire _weapon;
+        private PlayerStatsManager _playerStats;
 
         private Camera _camera;
 
         private Vector3 _direction;
 
+
+
         public PlayerShipController(ActiveObjectData playerData, InputController inputController ,out Transform player)
         {
             _inputController = inputController;
+            _playerData = playerData;
 
             _player = Object.Instantiate(playerData.GetPrefab()).GetComponent<InteractiveObjectView>();
-            _movementManager = new MovementManager(new RigidBodyMovement(_player.Rigidbody, playerData.Speed), new RigidBodyRotation(_player.Rigidbody));
-            _weapon = new BasicWeapon<ProjectileView>(new ProjectilePool<ProjectileView>(playerData.WeaponData.GetPrefab().GetComponent<ProjectileView>(),5),_player.Transform.Find("WeaponPosition"), playerData.WeaponData.WeaponStats);
+            _movementManager = new MovementManager(new RigidBodyMovement(_player.Rigidbody, _playerData.Speed), new RigidBodyRotation(_player.Rigidbody));
+            _weapon = new BasicWeapon<ProjectileView>(new ProjectilePool<ProjectileView>(_playerData.WeaponData.GetPrefab().GetComponent<ProjectileView>(),5),_player.Transform.Find("WeaponPosition"), playerData.WeaponData.WeaponStats);
+            
             player = _player.Transform;
         }
 
         public void Initialization()
         {
             _camera = Camera.current;
+            _playerStats = new PlayerStatsManager(_player, _playerData.HitPoints);
+            
+            var mods = new ActiveObjectModifier();
+            mods.Add(new ArmorModifier(_playerStats.HealthManager, 3));
+            mods.Add(new WeaponDamageModifier(_weapon as IChangeDamage, 10));
+            mods.Handle();
 
         }
 

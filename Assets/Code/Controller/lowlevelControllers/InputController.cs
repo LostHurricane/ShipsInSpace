@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class InputController : IInitialization, IExecute, ICleanup, ShipsInSpaceSV.IService
+    public class InputController : IInitialization, IExecute, ICleanup
     {
         private HashSet<IInput> _inputs;
 
@@ -18,10 +18,10 @@ namespace ShipsInSpace
         public float AxisVertical { get; private set; }
         public bool Fire { get; private set; }
 
-        public void UpdateCursorPosition(Vector3 value) => MousePosition = value;
-        public void UpdateHorizontal(float value) => AxisHorizontal = value;
-        public void UpdateVertical(float value) => AxisVertical = value;
-        public void UpdateFireButton(bool value) => Fire = value;
+        private void UpdateCursorPosition(Vector3 value) => MousePosition = value;
+        private void UpdateHorizontal(float value) => AxisHorizontal = value;
+        private void UpdateVertical(float value) => AxisVertical = value;
+        private void UpdateFireButton(bool value) => Fire = value;
 
         public InputController(out InputController inputController)
         {
@@ -33,19 +33,15 @@ namespace ShipsInSpace
             _inputs = new HashSet<IInput>();
 
 
-            //var inputCursorPosition = new InputCursorPosition();
             _inputCursorPosition.InputOnChange += UpdateCursorPosition;
             _inputs.Add(_inputCursorPosition);
 
-            //var vertical = new InputAxis("Vertical");
             _vertical.InputOnChange += UpdateVertical;
             _inputs.Add(_vertical);
 
-            //var horizontal = new InputAxis("Horizontal");
             _horizontal.InputOnChange += UpdateHorizontal;
             _inputs.Add(_horizontal);
 
-            //var fire = new InputButtonPressed("Fire1");
             _fire.InputOnChange += UpdateFireButton;
             _inputs.Add(_fire);
 

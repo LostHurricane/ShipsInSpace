@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class ProjectileView : MonoBehaviour, ITransform, IRigidBody, ICollider, IDamageDealer, IPoolable
+    public class ProjectileView : MonoBehaviour, IProjectileView
     {
         [SerializeField]
         private GameObject _gameObject;
@@ -23,15 +23,26 @@ namespace ShipsInSpace
         private Collider2D _collider;
         public Collider2D Collider { get => _collider; set => _collider = value; }
 
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+        public SpriteRenderer SpriteRenderer { get => _spriteRenderer; set => _spriteRenderer = value; }
+
         public Action<Transform> OnReturnToPool { get; set; }
         public Action<IDamagible> OnDealingDamage { get; set; }
+
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if(collision.transform.TryGetComponent<IDamagible>(out var target))
             {
                 OnDealingDamage.Invoke(target);
+                ReturnToPool();
             }
+        }
+
+        public void ReturnToPool()
+        {
+            OnReturnToPool.Invoke(transform);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipsInSpace
 {
-    public class MovementManager : IMove, IRotation, ISetRigidBody
+    public class MovementManager : IMovementManager, IMove, IRotation, ISetRigidBody
     {
         private readonly IMove _moveImplementation;
         private readonly IRotation _rotationImplementation;
